@@ -1,5 +1,5 @@
 # Rerubi-JS
-Rerumu's [Rerubi](https://github.com/Rerumu/Rerubi) converted to JS
+Rerumu's [Rerubi](https://github.com/Rerumu/Rerubi) recreated in JS
 
 unfinished, doesn't work as of now
 
