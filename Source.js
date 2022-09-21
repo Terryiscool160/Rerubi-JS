@@ -42,6 +42,11 @@ const Opcode = [
 //  @Eternal for being #1 bug finder and providing better float decoder
 //  @stravant for contributing to the original project this is derived from
 
+/* 
+    TODO:
+    for some reason my local bytecode isnt being processed properly?
+*/
+
 const GBit = function(Bit, Start, End) { // No tail-calls, yay.
     if (End) {
         let Response = (Bit / Math.pow(2, Start - 1)) % Math.pow(2, (End - 1) - (Start - 1) + 1)
@@ -58,7 +63,7 @@ const ldexp = function(Mantissa, Exponent) {
     let Steps = Math.min(3, Math.ceil(Math.abs(Exponent) / 1023));
     let Result = Mantissa;
 
-    for (var I = 0; I < Steps; I++) {
+    for (let I = 0; I < Steps; I++) {
         Result *= Math.pow(2, Math.floor((Exponent + I) / Steps));
     }
 
@@ -244,7 +249,7 @@ const GetMeaning = function(Bytecode) {
                         ConstantReferences[Cons] = ReferenceData;
                     }
 
-                    ReferenceData[ReferenceData.length + 1] = { Inst: Inst, Register: 5 }
+                    ReferenceData[ReferenceData.length + 1] = { Inst: Inst, Register: 5 };
                 }
             }
 
@@ -664,13 +669,13 @@ const Wrap = function(Chunk, Env, Upvalues) {
 
 					if (Step > 0) {
 						if (Index <= Stk[A++]) {
-							InstrPoint= InstrPoint + Inst[2];
+							InstrPoint = InstrPoint + Inst[2];
 
 							Stk[A + 3] = Index;
 						};
 					} else {
 						if (Index >= Stk[A++]) {
-							InstrPoint= InstrPoint + Inst[2];
+							InstrPoint = InstrPoint + Inst[2];
 
 							Stk[A + 3] = Index;
 						}
@@ -681,7 +686,7 @@ const Wrap = function(Chunk, Env, Upvalues) {
 
 					Stk[A] = Stk[A] - Stk[A + 2];
 
-					InstrPoint	= InstrPoint + Inst[2];
+					InstrPoint = InstrPoint + Inst[2];
 				} else if (Enum == 33) { // TFORLOOP
 					let A	= Inst[1];
 					let C	= Inst[3];
@@ -700,7 +705,7 @@ const Wrap = function(Chunk, Env, Upvalues) {
 					if (Stk[A + 3] != null) {
 						Stk[A + 2]	= Stk[A + 3];
                     } else {
-						InstrPoint	= InstrPoint + 1;
+						InstrPoint++;
 					};
 				} else if (Enum == 34) { // SETLIST
 					let A		= Inst[1];
@@ -709,12 +714,12 @@ const Wrap = function(Chunk, Env, Upvalues) {
 					let Stk	= Stack;
 
 					if (C == 0) {
-						InstrPoint	= InstrPoint + 1;
-						C			= Instr[InstrPoint].Value;
+						InstrPoint++;
+						C = Instr[InstrPoint].Value;
 					};
 
 					let Offset	= (C - 1) * 50;
-					let T			= Stk[A]; // Assuming T is the newly created table.
+					let T		= Stk[A]; // Assuming T is the newly created table.
 
 					if (B == 0) {
 						B = Top - A;
@@ -737,7 +742,7 @@ const Wrap = function(Chunk, Env, Upvalues) {
 
 							if (Stk == Stack) and (Pos >= A) {
 								Cls[Pos]	= Stk[Pos];
-								Upv[1]		= Cls; // @memcorrupt credit me for the spoonfeed
+								Upv[1]		= Cls;
 							};
 						};
 					};*/
